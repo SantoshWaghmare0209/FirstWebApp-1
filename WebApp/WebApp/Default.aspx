@@ -4,7 +4,7 @@
 
     <main>
         <section class="row" aria-labelledby="aspnetTitle">
-            <h1 id="aspnetTitle">Fully automated ASP.NET using Azure CICD</h1>
+            <h1 id="aspnetTitle">Fully Automated ASP.NET CICD developed by Santosh</h1>
             <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS, and JavaScript.</p>
             <p><a href="http://www.asp.net" class="btn btn-primary btn-md">Learn more &raquo;</a></p>
         </section>
