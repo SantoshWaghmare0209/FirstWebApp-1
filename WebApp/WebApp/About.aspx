@@ -5,5 +5,6 @@
         <h2 id="title"><%: Title %>.</h2>
         <p>Your app description page.</p>
         <p>Use this area to provide additional information.added demo details by santosh for cicd testing</p>
+         <p>enabled cicd in ado by adding the trigger options task done by santosh for cicd testing</p>
     </main>
 </asp:Content>
