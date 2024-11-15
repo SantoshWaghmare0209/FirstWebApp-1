@@ -11,4 +11,13 @@ jobs:
   environment: 
     name: azurevmdeploye
     resourceType: Virtualmachine
-    
+  
+  jobs:
+  - deployment: DeployWebAppOnAzureVM
+    displayName: 'Deploy Web App to Azure virtual Machine'
+    environment: 'azurevmdeploye'
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          
