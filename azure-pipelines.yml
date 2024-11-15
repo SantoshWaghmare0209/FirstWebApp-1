@@ -30,7 +30,7 @@ jobs:
           - task: AzureRmWebAppDeployment@4
             displayName: 'Deploy Azure App Service'
             inputs:
-              azureSubscription: '$(Parameters.ConnectedServiceName)'
+              azureSubscription: 'SC-Terraform'
               #appType: '$(Parameters.WebAppKind)'
               appType: 'webApp'
               WebAppName: '$(Parameters.WebAppName)'
