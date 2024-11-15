@@ -27,10 +27,11 @@ jobs:
               downloadType: 'single'
               artifactName: 'drop'
               downloadPath: '$(System.ArtifactsDirectory)'
+            
           - task: AzureRmWebAppDeployment@4
-            displayName: 'Deploy Azure App Service'
             inputs:
-              azureSubscription: 'SC-Terraform'
-              #appType: '$(Parameters.WebAppKind)'
-              appType: 'webApp'
-              WebAppName: '$(Parameters.WebAppName)'
+                ConnectionType: 'AzureRM'
+                azureSubscription: 'Free Trial (de2f44e1-3fea-4643-80a3-072f00a5e753)'
+                appType: 'webApp'
+                WebAppName: 'demowebapp001'
+                packageForLinux: '$(System.DefaultWorkingDirectory)/**/*.zip'
