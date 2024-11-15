@@ -5,3 +5,10 @@
 
 trigger: none
 
+jobs:
+- deployment: "DeployToAzureVM"
+  displayname: "DeployToAzureVM"
+  environment: 
+    name: azurevmdeploye
+    resourceType: Virtualmachine
+    
