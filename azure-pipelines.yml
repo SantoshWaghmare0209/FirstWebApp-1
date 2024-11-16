@@ -42,7 +42,7 @@ jobs:
               appType: 'webApp'
               appName: 'demowebapp001'
               package: '$(System.DefaultWorkingDirectory)'
-              deploymentMethod: 'auto'
+              deploymentMethod: 'zipDeploy'
           
    
           
