@@ -34,4 +34,6 @@ jobs:
                 azureSubscription: 'Free Trial (de2f44e1-3fea-4643-80a3-072f00a5e753)'
                 appType: 'webApp'
                 WebAppName: 'demowebapp001'
-                package: '$(System.DefaultWorkingDirectory)/drop/WebApp.zip'
+                package: '$(System.ArtifactsDirectory)/drop/WebApp.zip'
+          
+          
