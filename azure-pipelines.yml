@@ -26,7 +26,7 @@ jobs:
               buildVersionToDownload: 'latest'
               downloadType: 'single'
               artifactName: 'drop'
-              downloadPath: '$(System.ArtifactsDirectory)'
+              downloadPath: '$(System.ArtifactsDirectory)/drop/WebApp.zip'
             
           - task: AzureRmWebAppDeployment@4
             inputs:
