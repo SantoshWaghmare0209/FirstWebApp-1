@@ -29,14 +29,20 @@ jobs:
               downloadType: 'single'
               artifactName: 'drop'
               downloadPath: '$(System.ArtifactsDirectory)'
-          - task: AzureRmWebAppDeployment@4
+#          - task: AzureRmWebAppDeployment@4
+#            inputs:
+#              ConnectionType: 'AzureRM'
+#              azureSubscription: 'appservicedep-serviceconnection'
+#              appType: 'webApp'
+#              WebAppName: 'demowebapp001'
+#              packageForLinux: '$(System.DefaultWorkingDirectory)'
+          - task: AzureWebApp@1
             inputs:
-              ConnectionType: 'AzureRM'
               azureSubscription: 'appservicedep-serviceconnection'
               appType: 'webApp'
-              WebAppName: 'demowebapp001'
-              packageForLinux: '$(System.DefaultWorkingDirectory)'
-
+              appName: 'demowebapp001'
+              package: '$(System.DefaultWorkingDirectory)'
+              deploymentMethod: 'auto'
           
    
           
