@@ -30,11 +30,12 @@ jobs:
               artifactName: 'drop'
               downloadPath: '$(System.ArtifactsDirectory)'
           - task: AzureRmWebAppDeployment@4
-            displayName: 'Deploy Azure App Service'
             inputs:
+              ConnectionType: 'AzureRM'
               azureSubscription: 'appservicedep-serviceconnection'
               appType: 'webApp'
-              WebAppName: '$(Parameters.WebAppName)'
+              WebAppName: 'demowebapp001'
+              packageForLinux: '$(System.DefaultWorkingDirectory)/**/*.zip'
 
           
           # - task: DownloadBuildArtifacts@1
