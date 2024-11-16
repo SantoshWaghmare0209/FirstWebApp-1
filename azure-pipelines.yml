@@ -9,7 +9,9 @@ variables:
   ConnectedServiceName: 'bba9cf9c-0553-4678-bf21-c65e7839ec1d'
   WebAppKind: 'webApp'
   WebAppName: 'demowebapp001'
-
+  solution: '**/*.sln'
+  buildPlatform: 'Any CPU'
+  buildConfiguration: 'Release'
 jobs:
   - deployment: DeployWebAppOnAzureVM
     displayName: 'Deploy Web App to Azure virtual Machine'
@@ -35,5 +37,6 @@ jobs:
                 appType: 'webApp'
                 WebAppName: 'demowebapp001'
                 #package: '$(System.ArtifactsDirectory)/drop/WebApp.zip'
+                Package: '$(System.DefaultWorkingDirectory)/**/*.zip'
           
           
