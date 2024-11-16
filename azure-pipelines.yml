@@ -35,5 +35,8 @@ jobs:
               azureSubscription: 'appservicedep-serviceconnection'
               appType: 'webApp'
               WebAppName: 'demowebapp001'
-              packageForLinux: '$(System.DefaultWorkingDirectory)'  
+              packageForLinux: '$(System.DefaultWorkingDirectory)'
+
+          
+   
           
