@@ -12,37 +12,64 @@ variables:
   solution: '**/*.sln'
   buildPlatform: 'Any CPU'
   buildConfiguration: 'Release'
-jobs:
-  - deployment: DeployWebAppOnAzureAppService
-    displayName: 'Deploy Web App to Azure AppService'
-    environment: 'azurevmdeploye'
-    strategy:
-      runOnce:
-        deploy:
-          steps:
-          - task: DownloadBuildArtifacts@1
-            inputs:
-              buildType: 'specific'
-              project: '8757f6d8-0ada-4daa-9ef5-b9750be607d4'
-              pipeline: '17'
-              buildVersionToDownload: 'latest'
-              downloadType: 'single'
-              artifactName: 'drop'
-              downloadPath: '$(System.ArtifactsDirectory)'
-#          - task: AzureRmWebAppDeployment@4
-#            inputs:
-#              ConnectionType: 'AzureRM'
-#              azureSubscription: 'appservicedep-serviceconnection'
-#              appType: 'webApp'
-#              WebAppName: 'demowebapp001'
-#              packageForLinux: '$(System.DefaultWorkingDirectory)'
-          - task: AzureWebApp@1
-            inputs:
-              azureSubscription: 'appservicedep-serviceconnection'
-              appType: 'webApp'
-              appName: 'WebApp2'
-              package: '$(System.DefaultWorkingDirectory)'
-              deploymentMethod: 'zipDeploy'
-          
-   
-          
+
+stages:
+
+  - stage: "Deploytoappfirst"
+    jobs:
+      - deployment: DeployWebAppOnAzureAppService
+        displayName: 'Deploy Web App to Azure AppService'
+        environment: 'azurevmdeploye'
+        strategy:
+          runOnce:
+            deploy:
+              steps:
+              - task: DownloadBuildArtifacts@1
+                inputs:
+                  buildType: 'specific'
+                  project: '8757f6d8-0ada-4daa-9ef5-b9750be607d4'
+                  pipeline: '17'
+                  buildVersionToDownload: 'latest'
+                  downloadType: 'single'
+                  artifactName: 'drop'
+                  downloadPath: '$(System.ArtifactsDirectory)'
+    #          - task: AzureRmWebAppDeployment@4
+    #            inputs:
+    #              ConnectionType: 'AzureRM'
+    #              azureSubscription: 'appservicedep-serviceconnection'
+    #              appType: 'webApp'
+    #              WebAppName: 'demowebapp001'
+    #              packageForLinux: '$(System.DefaultWorkingDirectory)'
+              - task: AzureWebApp@1
+                inputs:
+                  azureSubscription: 'appservicedep-serviceconnection'
+                  appType: 'webApp'
+                  appName: 'WebApp2'
+                  package: '$(System.DefaultWorkingDirectory)'
+                  deploymentMethod: 'zipDeploy'
+              
+  - stage: "DeploytoApptwo"  
+    jobs:
+      - deployment: DeployWebAppOnAzureAppServicetwo
+        displayName: 'Deploy Web App to Azure AppService two'
+        environment: 'azurevmdeploye'
+        strategy:
+          runOnce:
+            deploy:
+              steps:
+              - task: DownloadBuildArtifacts@1
+                inputs:
+                  buildType: 'specific'
+                  project: '8757f6d8-0ada-4daa-9ef5-b9750be607d4'
+                  pipeline: '17'
+                  buildVersionToDownload: 'latest'
+                  downloadType: 'single'
+                  artifactName: 'drop'
+                  downloadPath: '$(System.ArtifactsDirectory)'
+              - task: AzureWebApp@1
+                inputs:
+                  azureSubscription: 'appservicedep-serviceconnection'
+                  appType: 'webApp'
+                  appName: 'demowebapp001'
+                  package: '$(System.DefaultWorkingDirectory)'
+                  deploymentMethod: 'zipDeploy'         
