@@ -13,8 +13,8 @@ variables:
   buildPlatform: 'Any CPU'
   buildConfiguration: 'Release'
 jobs:
-  - deployment: DeployWebAppOnAzureVM
-    displayName: 'Deploy Web App to Azure virtual Machine'
+  - deployment: DeployWebAppOnAzureAppService
+    displayName: 'Deploy Web App to Azure AppService'
     environment: 'azurevmdeploye'
     strategy:
       runOnce:
