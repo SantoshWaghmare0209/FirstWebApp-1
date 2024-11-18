@@ -53,7 +53,7 @@ stages:
     jobs:
       - deployment: DeployWebAppOnAzureAppServicetwo
         displayName: 'Deploy Web App to Azure AppService two'
-        environment: 'azurevmdeploye'
+        environment: "DeploytoApptwo"
         strategy:
           runOnce:
             deploy:
