@@ -21,6 +21,11 @@ stages:
   - job: BuildJob
     pool:
       vmImage: 'windows-latest' 
+      name: Azure Pipelines
+      demands:
+      - msbuild
+      - visualstudio
+      - vstest
     displayName: "Build and Publish Artifacts"
     steps:
     - script: echo "Building the application..."
