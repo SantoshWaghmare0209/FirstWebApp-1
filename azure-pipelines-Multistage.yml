@@ -9,10 +9,10 @@ variables:
   ConnectedServiceName: 'bba9cf9c-0553-4678-bf21-c65e7839ec1d'
   WebAppKind: 'webApp'
   WebAppName: 'demowebapp001'
-  solution: '**/*.sln'
+  #solution: '**/*.sln'
   buildPlatform: 'Any CPU'
   buildConfiguration: 'Release'
-  #solution: '**\*.sln'
+  solution: '**\*.sln'
 
 stages:
 - stage: Build
