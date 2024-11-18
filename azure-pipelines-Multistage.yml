@@ -49,6 +49,7 @@ stages:
                   deploymentMethod: 'zipDeploy'
               
   - stage: "DeploytoApptwo"  
+    dependsOn: Deploytoappfirst
     jobs:
       - deployment: DeployWebAppOnAzureAppServicetwo
         displayName: 'Deploy Web App to Azure AppService two'
