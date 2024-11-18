@@ -12,14 +12,63 @@ variables:
   solution: '**/*.sln'
   buildPlatform: 'Any CPU'
   buildConfiguration: 'Release'
+  #solution: '**\*.sln'
 
 stages:
+- stage: Build
+  displayName: "Build Stage"
+  jobs:
+  - job: BuildJob
+    displayName: "Build and Publish Artifacts"
+    steps:
+    - script: echo "Building the application..."
+      displayName: "Build"
+    - task: NuGetToolInstaller@0
+      displayName: 'Use NuGet 4.4.1'
+      inputs:
+            versionSpec: 4.4.1
+    - task: NuGetCommand@2
+      displayName: 'NuGet restore'
+      inputs:
+        restoreSolution: '$(Parameters.solution)'
 
-  - stage: "Deploytoappfirst"
-    jobs:
+    - task: VSBuild@1
+      displayName: 'Build solution'
+      inputs:
+        solution: '$(Parameters.solution)'
+        msbuildArgs: '/p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true /p:PackageLocation="$(build.artifactstagingdirectory)\\"'
+        platform: '$(BuildPlatform)'
+        configuration: '$(BuildConfiguration)'
+
+    - task: VSTest@2
+      displayName: 'Test Assemblies'
+      inputs:
+        testAssemblyVer2: |
+        # **\$(BuildConfiguration)\*test*.dll
+        # !**\obj\**
+        # platform: '$(BuildPlatform)'
+        # configuration: '$(BuildConfiguration)'
+
+    - task: PublishSymbols@2
+      displayName: 'Publish symbols path'
+      inputs:
+        SearchPattern: '**\bin\**\*.pdb'
+        PublishSymbols: false
+      continueOnError: true
+
+    - task: PublishBuildArtifacts@1
+      displayName: 'Publish Artifact'
+      inputs:
+        PathtoPublish: '$(build.artifactstagingdirectory)'
+        ArtifactName: '$(Parameters.ArtifactName)'
+      condition: succeededOrFailed()
+
+- stage: "Deploytoappfirst"
+  dependsOn: Build
+  jobs:
       - deployment: DeployWebAppOnAzureAppService
         displayName: 'Deploy Web App to Azure AppService'
-        environment: 'azurevmdeploye'
+        environment: 'DeploytoAppOne'
         strategy:
           runOnce:
             deploy:
@@ -33,13 +82,6 @@ stages:
                   downloadType: 'single'
                   artifactName: 'drop'
                   downloadPath: '$(System.ArtifactsDirectory)'
-    #          - task: AzureRmWebAppDeployment@4
-    #            inputs:
-    #              ConnectionType: 'AzureRM'
-    #              azureSubscription: 'appservicedep-serviceconnection'
-    #              appType: 'webApp'
-    #              WebAppName: 'demowebapp001'
-    #              packageForLinux: '$(System.DefaultWorkingDirectory)'
               - task: AzureWebApp@1
                 inputs:
                   azureSubscription: 'appservicedep-serviceconnection'
@@ -48,9 +90,9 @@ stages:
                   package: '$(System.DefaultWorkingDirectory)'
                   deploymentMethod: 'zipDeploy'
               
-  - stage: "DeploytoApptwo"  
-    dependsOn: Deploytoappfirst
-    jobs:
+- stage: "DeploytoApptwo"  
+  dependsOn: Deploytoappfirst
+  jobs:
       - deployment: DeployWebAppOnAzureAppServicetwo
         displayName: 'Deploy Web App to Azure AppService two'
         environment: "DeploytoApptwo"
