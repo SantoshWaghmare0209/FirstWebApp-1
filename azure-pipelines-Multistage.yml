@@ -17,8 +17,10 @@ variables:
 stages:
 - stage: Build
   displayName: "Build Stage"
-  jobs:
+  jobs: 
   - job: BuildJob
+    pool:
+      vmImage: 'windows-latest' 
     displayName: "Build and Publish Artifacts"
     steps:
     - script: echo "Building the application..."
